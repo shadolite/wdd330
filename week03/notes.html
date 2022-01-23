@@ -34,6 +34,85 @@
       - Object.entries() (returns key-value pairs)
     </li>
     <li>
+      Node Types
+      <br>
+      <table class="table-2-col border-collapse w-full my-2 text-xs leading-loose" data-block="k01nwu4f"
+        aria-expanded="false">
+        <thead class="">
+          <tr class="">
+            <th class="">Code</th>
+            <th class="">Type</th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <tr class="">
+            <td class="">1</td>
+            <td class="">element</td>
+          </tr>
+          <tr class="">
+            <td class="">2</td>
+            <td class="">attribute</td>
+          </tr>
+          <tr class="">
+            <td class="">3</td>
+            <td class="">text</td>
+          </tr>
+          <tr class="">
+            <td class="">8</td>
+            <td class="">comment</td>
+          </tr>
+          <tr class="">
+            <td class="">9</td>
+            <td class="">body</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+    <li>
+      Node lists are array-like objects, but they are not arrays.
+      You can access each item using index notation.
+      <br>
+      For example, document.images[0] will return the first image in the node
+      list of all the images in the document.
+      <br>
+      To turn a node list into an array:
+      <br>
+      - use Array.from(): 
+      <pre>const imageArray = Array.from(document.images);</pre>
+      - use the spread operator: 
+      <pre>const imageArray = [...document.images];</pre>
+    </li>
+    <li>
+      Appending nodes:
+      <br>
+      - Create the element node
+      <br>
+      - Create the text node
+      <br>
+      - Append the text node to the element node
+      <pre>
+      const flash = document.createElement('li');
+      const flashText = document.createTextNode('Flash');
+      flash.appendChild(flashText);
+    </pre>
+    .insertBefore() works similarly
+    </li>
+    <li>
+      Anonymous functions cannot be removed from event listeners
+    </li>
+    <li>
+      Bubbling is when the event fires on the element clicked on
+      <br>
+      first, then bubbles up the document tree, firing an event
+      <br>
+      on each parent element until it reaches the root node
+    </li>
+    <li>
+      Capturing starts by firing an event on the root element,
+      <br>
+      then propagates downwards, firing an event on each child
+      <br>
+      element until it reaches the target element that was clicked on
     </li>
   </ul>
 
