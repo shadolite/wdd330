@@ -15,7 +15,85 @@
   <h3>Notes:</h3>
   <ul>
     <li>
-      
+      Parentheses are not required when instantiating a new object using a constructor function
+      <br>
+      unless any default arguments need to be provided
+    </li>
+    <li>
+      When using E6 class declarations, class constructors cannot be invoked without 'new'
+    </li>
+    <li>
+      Private properties or methods are created by using 'let'
+    </li>
+    <li>
+      Property Descriptors:
+      <br>
+      value ― This is the value of the property and is undefined by default
+      <br>
+      writable ― This boolean value shows whether a property can be changed or not, and is false by default
+      <br>
+      enumerable ― this boolean value shows whether a property will show up when the object is displayed in a for in
+      loop, and is false by default
+      <br>
+      configurable ― this boolean value shows whether you can delete a property or change any of its attributes, and is
+      false by default
+    </li>
+    <li>
+      Getting and setting Property Descriptors:
+      <pre>Object.getOwnPropertyDescriptor(me,'name');
+        << { value: 'DAZ',
+        writable: true,
+        enumerable: true,
+        configurable: true }</pre>
+      <pre>Object.defineProperty(me, 'eyeColor', { value: 'blue', writable: false, enumerable: true }); 
+          << { name: 'DAZ', age: 21, eyeColor: 'blue' }</pre>
+    </li>
+    <li>
+      Getters and Setters
+      <pre>
+class Dice {
+  constructor(sides=6){    
+    Object.defineProperty(this, 'sides', {
+        get() {
+          return `This dice has ${sides} sides`;
+        },
+        set(value) {
+          if(value > 0) {
+            sides = value;
+            return sides;
+        } else {
+          throw new Error('The number of sides must be positive');
+        }
+      }
+    });
+  
+    this.roll = function() {
+      return Math.floor(sides * Math.random() + 1)
+    }
+  }
+}</pre>
+      Result:
+      <pre>
+const yellowDice = new Dice;
+yellowDice.sides
+<< "This dice has 6 sides"
+
+yellowDice.sides = 10;
+<< 10
+
+yellowDice.sides
+<< "This dice has 10 sides"
+
+yellowDice.sides = 0;
+<< Error: "The number of sides must be positive"</pre>
+    </li>
+    <li>
+      If a method returns 'this', its methods can be chained together to form a sequence of method calls that are called one after the other
+      <pre>
+superman.fly().move().xray();
+<<  Up, up and away! Superman soars through the air!
+    Superman can move faster than a speeding bullet!
+    Superman can see right through you!</pre>
     </li>
   </ul>
 
