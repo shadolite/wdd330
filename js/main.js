@@ -1,4 +1,4 @@
-const links = [
+const linksInfo = [
   {
     label: "Week 01",
     url: "week01/index.html"
@@ -10,26 +10,40 @@ const links = [
   {
     label: "Week 03",
     url: "week03/index.html"
+  },
+  {
+    label: "Week 04",
+    url: "week04/index.html"
   }
 ]
 
-const getLinksHTML = () => {
-  var html = '';
+const getLink = (linkInfo) => {
+  let a = document.createElement(`a`);
+  a.href = linkInfo.url;
+  a.innerText = linkInfo.label;
+  return a;
+};
 
-  links.forEach(link => {
-    // let a = document.createElement(`a`);
-    // a.innerHTML = link.url;
-    // a.innerText = link.label;
-    html += `\n<li><a href="${link.url}">${link.label}</a></li>`;
-  })
-
-  return html;
+const getLi = (el) => {
+  let li = document.createElement(`li`);
+  li.append(el);
+  return li;
 }
 
+const getLinks = () => {
+  const links = [];
+
+  linksInfo.forEach(link => {
+    links.push(getLi(getLink(link)));
+  });
+
+  return links;
+};
+
 const loadTableOfContents = () => {
-  var ol = document.getElementById("toc");
-  var html = getLinksHTML();
-  ol.innerHTML += html;
+  getLinks().forEach(link => {
+    document.getElementById("toc").appendChild(link);
+  });
 }
 
 window.onload = loadTableOfContents;
