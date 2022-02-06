@@ -18,13 +18,13 @@ ul, li, h2, div {
     display: none;
 }
 
-/* #description {
+#description {
     display: none;
 }
 
 div:hover + #description {
     display: block
-} */
+}
 
 
 h1 {
