@@ -15,6 +15,47 @@
   <h3>Notes:</h3>
   <ul>
     <li>
+      Stack traces are the best!
+    </li>
+    <li>
+      JavaScript sometimes fails silently in the background
+    </li>
+    <li>
+      Strict mode encourages better quality JavaScript
+      <br>
+      - Can be used per function
+      <br>
+      - Modules are strict by default
+    </li>
+    <li>
+      ES Lint tests code for quality
+      <br>
+      - Can prevent commits containing errors
+      <br>
+      - Requires npm
+    </li>
+    <li>
+      Use failure detection and exception handling
+    </li>
+    <li>
+      Jest can be used for test driven development
+      <br>
+      - Requires npm
+      <pre>
+function squareRoot(number) {
+  'use strict';
+  if (number < 0) {
+    throw new RangeError("You can't find the square root of negative numbers")
+  }
+  return Math.sqrt(number);
+};
+
+test('square root of 4 is 2', () => {
+  expect(squareRoot(4)).toBe(2);
+});</pre>
+    </li>
+    <li>
+      
     </li>
   </ul>
 
