@@ -14,6 +14,10 @@ const linksInfo = [
   {
     label: "Week 04",
     url: "week04/index.html"
+  },
+  {
+    label: "Week 05",
+    url: "week05/index.html"
   }
 ]
 
