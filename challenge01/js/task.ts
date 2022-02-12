@@ -1,12 +1,11 @@
-import { Guid } from 'guid-ts';
 
 export default class Task {
-  id: Guid;
+  id: Date;
   description: string;
   isOpen: boolean;
 
   constructor(description: string) {
-    this.id = Guid.newGuid();
+    this.id = new Date();
     this.description = description;
     this.isOpen = true;
   }

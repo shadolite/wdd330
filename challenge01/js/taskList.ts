@@ -1,4 +1,3 @@
-import { Guid } from "guid-ts";
 import Task from "./task";
 
 export default class TaskList{
@@ -8,7 +7,7 @@ export default class TaskList{
     this.tasks = new Array<Task>();
   }
 
-  getTask = (id: Guid) => {
+  getTask = (id: Date) => {
     return this.tasks.find(t => t.id == id);
   }
 

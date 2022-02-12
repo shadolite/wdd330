@@ -1,16 +1,29 @@
 import Task from "./task";
 import TaskList from "./taskList";
+import { getTasksElements } from "./utilities";
 
 const tasks = new TaskList();
 
-const displayAllTasks = () => {
-  throw new Error("Function not implemented.");
+const renderAllTasks = () => {
+  getTasksElements(tasks.getAllTasks());
 };
 
-const displayOpenTasks = () => {
-  throw new Error("Function not implemented.");
+const renderOpenTasks = () => {
+  getTasksElements(tasks.getOpenTasks());
 };
 
-const displayClosedTasks = () => {
-  throw new Error("Function not implemented.");
+const renderClosedTasks = () => {
+  getTasksElements(tasks.getClosedTasks());
 };
+
+const addTask = (description: string) => {
+  throw new Error("Function not implemented.");
+}
+
+const updateTask = (isOpen: boolean) => {
+  throw new Error("Function not implemented.");
+}
+
+const deleteTask = (task: Task) => {
+  throw new Error("Function not implemented.");
+}

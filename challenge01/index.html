@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>To Do List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Link to Stylesheet -->
+  <link rel="stylesheet" href="./styles/main.css">
+  <script src="https://kit.fontawesome.com/ec02da730f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <main>
+    <div class="taskApp">
+      <div class="taskHeader">
+        <h1>To Do:</h1>
+      </div>
+      <div class="taskTable">
+        <table id="tasks" class="tasks">
+          <tr class="task">
+            <td>Alfreds Futterkiste</td>
+            <td colspan="2">Maria Anders</td>
+            <td>Germany</td>
+          </tr>
+          <tr class="taskFooterRow">
+            <td colspan="4">
+              <div id="taskCount" class="taskCount">tasks left</div>
+              <div id="taskFilters" class="taskFilters">
+                <button title="All Tasks"><i title="All Tasks" class="fa-solid fa-list-check"></i></button>
+                <button title="Open Tasks"><i title="Open Tasks" class="fa-solid fa-list-ul"></i></button>
+                <button title="Completed Tasks"><i title="Completed Tasks" class="fa-solid fa-check"></i></button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="addTask">
+        <form>
+          <input type="text"></input>
+          <button title="Add Task"><i class="fa-solid fa-plus"></i></button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="./js/main.js" type="module"></script>
+</body>
+
+</html>

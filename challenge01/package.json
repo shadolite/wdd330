@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/shadolite/wdd330/issues"
   },
-  "homepage": "https://github.com/shadolite/wdd330#readme",
-  "dependencies": {
-    "guid-ts": "^1.1.2"
-  }
+  "homepage": "https://github.com/shadolite/wdd330#readme"
 }
