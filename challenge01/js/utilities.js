@@ -1,12 +1,4 @@
-import Task from "./task";
-
-export const getJSONFromTask = (task) => {
-  throw new Error("Function not implemented.");
-}
-
-export const getTaskFromJSON = (task) => {
-  throw new Error("Function not implemented.");
-}
+import {Task} from "./task.js";
 
 const getCheckCell = (checked) => {
   let checkElement = document.createElement("input");

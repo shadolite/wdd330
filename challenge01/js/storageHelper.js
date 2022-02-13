@@ -1,9 +1,17 @@
-import Task from "./task";
+import { Task } from "./task";
 
-const saveTasks = (tasks) => {
+const getJSONFromTask = (task) => {
   throw new Error("Function not implemented.");
 }
 
-const loadTasks = () => {
+const getTaskFromJSON = (task) => {
+  throw new Error("Function not implemented.");
+}
+
+export const saveTasks = (tasks) => {
+  throw new Error("Function not implemented.");
+}
+
+export const loadTasks = () => {
   throw new Error("Function not implemented.");
 }

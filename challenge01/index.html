@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Link to Stylesheet -->
   <link rel="stylesheet" href="./styles/main.css">
+  <script src="./js/main.js" type="module"></script>
   <script src="https://kit.fontawesome.com/ec02da730f.js" crossorigin="anonymous"></script>
 </head>
 
@@ -27,24 +28,23 @@
             <td colspan="4">
               <div id="taskCount" class="taskCount">tasks left</div>
               <div id="taskFilters" class="taskFilters">
-                <button title="All Tasks"><i title="All Tasks" class="fa-solid fa-list-check"></i></button>
-                <button title="Open Tasks"><i title="Open Tasks" class="fa-solid fa-list-ul"></i></button>
-                <button title="Completed Tasks"><i title="Completed Tasks" class="fa-solid fa-check"></i></button>
+                <button class="filter" title="All Tasks"><i title="All Tasks" class="fa-solid fa-list-check"></i></button>
+                <button class="filter" title="Open Tasks" onclick="select(this)"><i title="Open Tasks" class="fa-solid fa-list-ul"></i></button>
+                <button class="filter" title="Completed Tasks" onclick="select(this)"><i title="Completed Tasks" class="fa-solid fa-check"></i></button>
               </div>
             </td>
           </tr>
         </table>
       </div>
-      <div class="addTask">
-        <form>
-          <input type="text"></input>
-          <button title="Add Task"><i class="fa-solid fa-plus"></i></button>
+      <div class="addTaskSection">
+        <form id="addTask" class="addTask">
+          <input id="description" class="description" type="text"></input>
+          <button type="submit" id="add" class="add" title="Add Task"><i class="fa-solid fa-plus"></i></button>
         </form>
       </div>
     </div>
   </main>
 
-  <script src="./js/main.js" type="module"></script>
 </body>
 
 </html>
