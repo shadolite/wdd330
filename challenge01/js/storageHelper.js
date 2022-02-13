@@ -1,6 +1,6 @@
 import Task from "./task";
 
-const saveTasks = (tasks: Array<Task>) => {
+const saveTasks = (tasks) => {
   throw new Error("Function not implemented.");
 }
 

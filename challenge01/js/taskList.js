@@ -1,34 +1,40 @@
-"use strict";
-exports.__esModule = true;
-var TaskList = /** @class */ (function () {
-    function TaskList() {
-        var _this = this;
-        this.getTask = function (id) {
-            return _this.tasks.find(function (t) { return t.id == id; });
-        };
-        this.addTask = function (task) {
-            _this.tasks.push(task);
-        };
-        this.removeTask = function (task) {
-            _this.tasks = _this.tasks.filter(function (t) { return t.id !== task.id; });
-        };
-        this.getAllTasks = function () {
-            return _this.tasks;
-        };
-        this.getOpenTasks = function () {
-            return _this.tasks.filter(function (t) { return t.isOpen; });
-        };
-        this.getClosedTasks = function () {
-            return _this.tasks.filter(function (t) { return !t.isOpen; });
-        };
-        this.saveTaskList = function () {
-            throw new Error("Function not implemented.");
-        };
-        this.openTaskList = function () {
-            throw new Error("Function not implemented.");
-        };
-        this.tasks = new Array();
-    }
-    return TaskList;
-}());
-exports["default"] = TaskList;
+import Task from "./task";
+
+export default class TaskList{
+
+  constructor() {
+    this.tasks = new [Task];
+  }
+
+  getTask = (id) => {
+    return this.tasks.find(t => t.id == id);
+  }
+
+  addTask = (task) => {
+    this.tasks.push(task);
+  }
+
+  removeTask = (task) => {
+    this.tasks = this.tasks.filter(t => t.id !== task.id);
+  }
+
+  getAllTasks = () => {
+    return this.tasks;
+  }
+
+  getOpenTasks = () => {
+    return this.tasks.filter(t => t.isOpen);
+  }
+
+  getClosedTasks = () => {
+    return this.tasks.filter(t => !t.isOpen);
+  }
+
+  saveTaskList = () => {
+    throw new Error("Function not implemented.");
+  }
+
+  openTaskList = () => {
+    throw new Error("Function not implemented.");
+  }
+}
