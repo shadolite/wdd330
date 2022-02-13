@@ -32,9 +32,9 @@ td {
   float: right;
 }
 
-#tasks .task:nth-child(odd) {background-color: #f2f2f2;}
+#taskTable .task:nth-child(odd) {background-color: #f2f2f2;}
 
-#tasks .task:hover {background-color: #ddd;}
+#taskTable .task:hover {background-color: #ddd;}
 
 button {
   font-size:x-large;

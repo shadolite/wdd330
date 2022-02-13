@@ -4,44 +4,44 @@ import { saveTasks, loadTasks } from "./storageHelper.js";
 export class TaskList{
 
   constructor() {
-    this.tasks = new Array();
+    this.list = new Array();
   }
 
   addNewTask = (description) => {
     let task = new Task(description);
-    this.tasks.push(task);
-    saveTasks(this.tasks);
+    this.list.push(task);
+    saveTasks(this.list);
   }
 
   removeTask = (task) => {
-    this.tasks = this.tasks.filter(t => t.id !== task.id);
-    saveTasks(this.tasks);
+    this.list = this.list.filter(t => t.id !== task.id);
+    saveTasks(this.list);
   }
 
-  udpateTask = (task) => {
-    let updatedTask = this.tasks.find(t => t.id == task.id);
-    updatedTask.description = task.description;
-    updatedTask.isOpen = task.isOpen;
-    saveTasks(this.tasks);
+  udpateTask = (id, isOpen) => {
+    let task = this.list.find(t => t.id.toString() == id);
+    // task.description = description ? task.description : description;
+    task.isOpen = isOpen ? task.isOpen : isOpen;
+    saveTasks(this.list);
   }
 
   getTask = (id) => {
-    return this.tasks.find(t => t.id == id);
+    return this.list.find(t => t.id == id);
   }
 
   getAllTasks = () => {
-    return this.tasks;
+    return this.list;
   }
 
   getOpenTasks = () => {
-    return this.tasks.filter(t => t.isOpen);
+    return this.list.filter(t => t.isOpen);
   }
 
   getClosedTasks = () => {
-    return this.tasks.filter(t => !t.isOpen);
+    return this.list.filter(t => !t.isOpen);
   }
 
   loadSavedTasks = () => {
-    throw new Error("Function not implemented.");
+    this.list = loadTasks();
   }
 }

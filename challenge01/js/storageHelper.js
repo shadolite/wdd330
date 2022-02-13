@@ -1,17 +1,13 @@
-import { Task } from "./task";
-
-const getJSONFromTask = (task) => {
-  throw new Error("Function not implemented.");
-}
-
-const getTaskFromJSON = (task) => {
-  throw new Error("Function not implemented.");
-}
+const tasksKey = "tasks";
 
 export const saveTasks = (tasks) => {
-  throw new Error("Function not implemented.");
+  let storageItem = JSON.stringify(tasks);
+  window.localStorage.setItem(tasksKey, storageItem);
 }
 
 export const loadTasks = () => {
-  throw new Error("Function not implemented.");
+  let storageItem = window.localStorage.getItem(tasksKey);
+  if (!storageItem)
+    return [];
+  return JSON.parse(storageItem);
 }
