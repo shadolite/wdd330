@@ -13,8 +13,8 @@ export class TaskList{
     saveTasks(this.list);
   }
 
-  removeTask = (task) => {
-    this.list = this.list.filter(t => t.id !== task.id);
+  deleteTask = (id) => {
+    this.list = this.list.filter(t => t.id.toString() !== id);
     saveTasks(this.list);
   }
 

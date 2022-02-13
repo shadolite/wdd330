@@ -10,9 +10,16 @@ const clearTaskElements = () => {
   });
 };
 
-const renderTasks = (filterType) => {
+const getFilterType = () => {
+  let selectedButton = document.getElementsByClassName('selected')[0];
+  let filter = selectedButton.id;
+  return filter;
+}
+
+const renderTasks = () => {
   clearTaskElements();
   const footerRow = document.getElementById('taskFooterRow');
+  const filterType = getFilterType();
   switch(filterType){
     case "open":
       getTaskRows(tasks.getOpenTasks()).forEach(taskRow => {
@@ -31,11 +38,11 @@ const renderTasks = (filterType) => {
   }
 };
 
-function addTask(event) {
+function addTaskHandler(event) {
   event.preventDefault();
   let description = event.srcElement.description.value;
   tasks.addNewTask(description);
-  renderTasks("all");
+  renderTasks();
   updateTaskFooter();
 };
 
@@ -47,9 +54,9 @@ function updateTaskHandler(event) {
 };
 
 function deleteTaskHandler(event) {
-  let taskID;
+  let taskID= event.parentNode.parentNode.id;
   tasks.deleteTask(taskID);
-  renderTasks("all");
+  renderTasks();
   updateTaskFooter();
 };
 
@@ -66,8 +73,7 @@ const updateSelectedClass = (event) => {
 
 function filterHandler(event) {
   updateSelectedClass(event);
-  let filterType = event;
-  renderTasks(filterType);
+  renderTasks();
 }
 
 const addFilterListeners = () => {
@@ -79,7 +85,7 @@ const addFilterListeners = () => {
 }
 
 const addNewTaskListener = () => {
-  document.forms['addTask'].addEventListener('submit', addTask);
+  document.forms['addTask'].addEventListener('submit', addTaskHandler);
 }
 
 const getCheckboxInputs = () =>
@@ -106,7 +112,7 @@ const addDeleteTaskListener = () => {
 
 const renderSavedTasks = () => {
   tasks.loadSavedTasks();
-  renderTasks("all");
+  renderTasks();
   addCheckboxListener();
   addDeleteTaskListener();
 }
@@ -114,7 +120,9 @@ const renderSavedTasks = () => {
 const updateTaskFooter = () => {
   let taskCountEl = document.getElementById("taskCount");
   let taskCount = tasks.getOpenTasks().length;
-  taskCountEl.innerText = taskCount < 0 ? `${taskCount} tasks left` : "No open tasks";
+  taskCountEl.innerText = taskCount > 0 
+    ? `${taskCount} ${(taskCount > 1 ? `tasks` : `task`)} left` 
+    : "No open tasks";
 }
 
 window.onload = () => {
