@@ -20,7 +20,7 @@ const renderTasks = () => {
   clearTaskElements();
   const footerRow = document.getElementById('taskFooterRow');
   const filterType = getFilterType();
-  switch(filterType){
+  switch (filterType) {
     case "open":
       getTaskRows(tasks.getOpenTasks()).forEach(taskRow => {
         footerRow.parentNode.insertBefore(taskRow, footerRow);
@@ -47,14 +47,14 @@ function addTaskHandler(event) {
 };
 
 function updateTaskHandler(event) {
-  let taskID;
-  let isOpen;
-  tasks.updateTask(taskID, isOpen)
+  let taskID = event.parentNode.parentNode.id;
+  let isOpen = event.value == "on" ? false : true;
+  tasks.udpateTask(taskID, isOpen)
   updateTaskFooter();
 };
 
 function deleteTaskHandler(event) {
-  let taskID= event.parentNode.parentNode.id;
+  let taskID = event.parentNode.parentNode.id;
   tasks.deleteTask(taskID);
   renderTasks();
   updateTaskFooter();
@@ -64,6 +64,9 @@ const getFilterButtons = () =>
   [...document.getElementsByClassName("filter")];
 
 const updateSelectedClass = (event) => {
+  if (event.classList.value.includes('selected'))
+    return;
+
   getFilterButtons().forEach(el => {
     el.classList.remove('selected');
   })
@@ -120,8 +123,8 @@ const renderSavedTasks = () => {
 const updateTaskFooter = () => {
   let taskCountEl = document.getElementById("taskCount");
   let taskCount = tasks.getOpenTasks().length;
-  taskCountEl.innerText = taskCount > 0 
-    ? `${taskCount} ${(taskCount > 1 ? `tasks` : `task`)} left` 
+  taskCountEl.innerText = taskCount > 0
+    ? `${taskCount} ${(taskCount > 1 ? `tasks` : `task`)} left`
     : "No open tasks";
 }
 
