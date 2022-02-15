@@ -17,6 +17,16 @@ table {
   border: 1px solid;
   width: 30rem;
 }
+tbody tr td:first-child {
+  width: 1em;
+  max-width: 1em;
+  word-break: break-all;
+}
+tbody tr td:last-child {
+  width: 3em;
+  max-width: 3em;
+  word-break: break-all;
+}
 td {
   margin: 5px;
   padding: 10px;
@@ -40,7 +50,8 @@ tr {
 }
 .description {
   height: 24px;
-  width: 25rem;
+  width: 30em;
+  float: left;
 }
 .taskApp {
   left: 50%;
