@@ -36,19 +36,23 @@ const renderTasks = () => {
         footerRow.parentNode.insertBefore(taskRow, footerRow);
       })
   }
+  
+  addCheckboxListener();
+  addDeleteTaskListener();
 };
 
 function addTaskHandler(event) {
   event.preventDefault();
   let description = event.srcElement.description.value;
   tasks.addNewTask(description);
+  event.srcElement.description.value = "";
   renderTasks();
   updateTaskFooter();
 };
 
 function updateTaskHandler(event) {
   let taskID = event.parentNode.parentNode.id;
-  let isOpen = event.value == "on" ? false : true;
+  let isOpen = event.checked ? false : true;
   tasks.udpateTask(taskID, isOpen)
   updateTaskFooter();
 };

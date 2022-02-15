@@ -6,26 +6,39 @@ body {
   max-width: 60rem;
 }
 
+button {
+  border-radius: 12px;
+  font-size: x-large;
+  margin-right: 5px;
+  margin-left: 5px;
+}
 table {
   border-collapse: collapse;
   border: 1px solid;
-}
-tr {
-  outline: 1px solid;
 }
 td {
   margin: 5px;
   padding: 10px;
 }
+tr {
+  outline: 1px solid;
+}
+
 #taskTable .task:nth-child(odd) {
   background-color: #f2f2f2;
 }
 #taskTable .task:hover {
   background-color: #ddd;
 }
-button {
-  border-radius: 12px;
-  font-size: x-large;
+
+.addTaskSection {
+  margin-top: 10px;
+}
+.add {
+  float: right;
+}
+.description {
+  height: 24px;
 }
 .taskApp {
   left: 50%;
@@ -34,9 +47,6 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.taskHeader {
-  position: relative;
-}
 .taskList {
   position: relative;
 }
@@ -44,6 +54,7 @@ button {
   display: flex;
   float: left;
   margin-left: auto;
+  margin-right: 5px;
 }
 .taskFilters {
   display: flex;

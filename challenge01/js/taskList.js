@@ -21,7 +21,7 @@ export class TaskList{
   udpateTask = (id, isOpen) => {
     let task = this.list.find(t => t.id.toString() == id);
     // task.description = description ? task.description : description;
-    task.isOpen = isOpen ? task.isOpen : isOpen;
+    task.isOpen = isOpen;
     saveTasks(this.list);
   }
 
