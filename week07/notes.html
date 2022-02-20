@@ -15,10 +15,54 @@
   <h3>Notes:</h3>
   <ul>
     <li>
-      
+      all functions have a length property that returns the number of parameters the function has
     </li>
     <li>
-      
+      The call() method can be used to set the value of this inside a function to an object that is provided as the first argument
+      <pre>
+const clark = { name: 'Clark' };
+const bruce = { name: 'Bruce' };
+
+sayHello.call(clark);
+<< 'Hello, my name is Clarke'
+
+sayHello.call(bruce);
+<< 'Hello, my name is Bruce'</pre>
+    </li>
+    <li>
+      Immediately Invoked Function Expression – or IIFE – (pronounced 'iffy') is an anonymous function that is invoked as soon as it’s defined
+      <pre>
+        (function(){
+          const temp = 'World';
+          console.log(`Hello ${temp}`);
+          })();
+          << 'Hello World'
+      </pre>
+    </li>
+    <li>
+      There is no way to remove a variable from a scope once it’s been declared. If a variable is only required temporarily, it may cause confusion if it’s still available later in the code. Even worse, the name of the variable may clash with another piece of code (an external JavaScript library, for example) resulting in errors. Placing any code that uses the temporary variable inside an IIFE will ensure it’s only available while the IIFE is invoked, then it will disappear
+      <pre>
+        let a = 1;
+        let b = 2;
+        
+        (()=>{
+            const temp = a;
+            a = b;
+            b = temp;
+        })();
+        
+        a;
+        << 2
+        
+        b;
+        << 1
+        
+        console.log(temp);
+        << Error: "temp is not defined"
+      </pre>
+    </li>
+    <li>
+
     </li>
   </ul>
 
