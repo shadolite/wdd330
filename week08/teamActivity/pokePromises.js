@@ -33,7 +33,6 @@ const renderPokemon = (pocketMonsters, pokeListElement) => {
 };
 
 const renderPokeDetails = (pokeDetailsEndpoint) => {
-  const detailsElement = document.getElementById("detailsbox");
   const orderElement = document.getElementById("order");
   const nameElement = document.getElementById("name");
   const spriteElement = document.getElementById("sprite");
@@ -46,11 +45,21 @@ const renderPokeDetails = (pokeDetailsEndpoint) => {
     spriteElement.src = data.sprites.front_default;
     heightElement.innerHTML = data.height;
     weightElement.innerHTML = data.weight;
-    detailsElement.className = "";
+    showDetails();
   })
 }
 
-function showPokemon(url = pokemonAPI) {
+const showDetails = () => {
+  const detailsElement = document.getElementById("detailsbox");
+  detailsElement.className = "";
+}
+
+const hideDetails = () => {
+  const detailsElement = document.getElementById("detailsbox");
+  detailsElement.className = "hidden";
+}
+
+const showPokemon = (url = pokemonAPI) => {
   getJSON(url).then((data) => {
     console.log(data);
     const results = data.results;
@@ -61,6 +70,7 @@ function showPokemon(url = pokemonAPI) {
     if (data.next) {
       const next = document.getElementById("next");
       next.onclick = () => {
+        hideDetails();
         showPokemon(data.next);
       };
     }
@@ -69,13 +79,14 @@ function showPokemon(url = pokemonAPI) {
       const prev = document.getElementById("previous");
 
       prev.onclick = () => {
+        hideDetails();
         showPokemon(data.previous);
       };
     }
   });
 }
 
-function getPokeDetails(url) {
+const getPokeDetails = (url) => {
   getJSON(url).then((data) => {
     renderPokeDetails(data);
   });
