@@ -2,13 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <link rel="stylesheet" type="text/css" href="pokeStyles.css" />
+    <title>Pokemon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
   <body>
+    <h1>
+      <a href="https://pokeapi.co" target="_blank" rel="noreferrer">Pokemon</a>
+      Exercise
+    </h1>
     <main>
+      <div class="listbox">
+        <table id="pokelist">
+        </table>
+        <a id="previous" href="#">&lt;- Previous</a> <a id="next" href="#">Next -&gt;</a>
+      </div>
       
+      <div id="detailsbox" class="hidden">
+        <dl>
+          <dt>Name:</dt>
+          <dd id="name"></dd>
+          <dt>Number:</dt>
+          <dd id="order"></dd>
+          <dt>Sprite:</dt>
+          <dd><img id="sprite" src="" alt="sprite"></dd>
+          <dt>Height:</dt>
+          <dd id="height"></dd>
+          <dt>Weight:</dt>
+          <dd id="weight"></dd>
+        </dl>
+      </div>
     </main>
+    <script src="pokePromises.js"></script>
   </body>
 </html>
