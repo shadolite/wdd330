@@ -15,7 +15,39 @@
   <h3>Notes:</h3>
   <ul>
     <li>
-      
+      The data- attribute is a way of embedding data in a web page
+      <br>
+      using custom attributes that are ignored by the browser
+      <pre>const superman = document.getElementById('hero');
+        const powers = superman.dataset.powers;
+        << 'flight superSpeed'</pre>
+        - Notice that the data- prefix is dropped. To access the attribute, 
+        <br>
+        powers is used as if it’s a property of the dataset object 
+        <br>
+        - If a data- attribute’s name contains hyphens
+        <br>
+        they are replaced with camel-case notation
+        <br>
+        so data-max-length would be accessed using dataset.maxLength
+    </li>
+    <li>
+      localStorage
+      <br>
+      - Information stored is not shared with the server on every request
+      <br>
+      - Information is available in multiple windows of the browser if the domain is the same
+      <br>
+      - There is no actual storage capacity limit in the specification
+      <br>
+      but most browsers have a limit set at 5GB per domain
+      <br>
+      - Any data stored does not automatically expire as it does with cookies
+    </li>
+    <li>
+      The Notification API allows you to show messages using the system's notifications
+      <br>
+      - Before you can send notifications you need to get permission granted by the user
     </li>
   </ul>
 
