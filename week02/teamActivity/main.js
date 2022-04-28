@@ -1,9 +1,9 @@
-const writeResult = (input, divId) => {
+function writeResult(input, divId) {
   var div = document.getElementById(divId);
   div.innerHTML = input;
 };
 
-const getCountSum = (number, callback) => {
+const getCountSum = function(number, callback) {
   let result = 0;
 
   for (let i = 1; i <= number; i++) {
