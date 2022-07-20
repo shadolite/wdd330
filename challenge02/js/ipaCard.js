@@ -1,5 +1,5 @@
 export default class IPACard {
-  constructor(ipaGroup, ipaID, symbolString, examples, description, audioAddress = null, reviewCount = 0, failed = true) {
+  constructor(ipaGroup, ipaID, symbolString, examples, description, audioAddress = null, reviewCount = 0, learned = null) {
     this.ipaGroup = ipaGroup;
     this.id = ipaID;
     this.symbol = symbolString[1];
@@ -7,7 +7,7 @@ export default class IPACard {
     this.description = description;
     this.audioAddress = audioAddress ? audioAddress : getAudioAddress(ipaGroup, ipaID, symbolString);
     this.reviewCount = reviewCount;
-    this.failed = failed;
+    this.learned = learned;
   }
 }
 

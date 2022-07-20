@@ -1,13 +1,4 @@
-export default class APIHandler {
-  constructor() {
-  }
-
-
-  
-}
-
-
-export const getJSON = (endpoint) => {
+export function getJSON(endpoint) {
   return fetch(endpoint)
     .then(response => 
       {

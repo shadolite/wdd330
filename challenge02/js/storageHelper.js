@@ -1,11 +1,11 @@
 const cardsKey = "cards";
 
-export const saveCards = (cards) => {
+export const saveDeck = (cards) => {
   let storageItem = JSON.stringify(cards);
   window.localStorage.setItem(cardsKey, storageItem);
 }
 
-export const loadCards = () => {
+export const loadDeck = () => {
   let storageItem = window.localStorage.getItem(cardsKey);
   if (!storageItem)
     return [];

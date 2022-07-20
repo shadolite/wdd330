@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPA Flash Cards</title>
+    <script src="./js/main.js" type="module"></script>
+    <script
+      src="https://kit.fontawesome.com/ec02da730f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <div class="deck">
+        <div class="deckControls">
+          <div class="card"></div>
+          <div id="stats" class="stats"></div>
+          <div class="cardFilters">
+            <span>Study Filters: </span>
+            <button id="all" class="filter selected" title="All Cards">
+              <i title="All Cards" class="fa-solid fa-border-all"></i>
+              All Cards
+            </button>
+            <button id="new" class="filter" title="New Cards">
+              <i title="New Cards" class="fa-solid fa-circle-plus"></i>
+              New Cards
+            </button>
+            <button id="failed" class="filter" title="Failed Cards">
+              <i title="Failed Cards" class="fa-solid fa-circle-xmark"></i>
+              Failed Cards
+            </button>
+            <button id="learned" class="filter" title="Learned Cards">
+              <i title="Learned Cards" class="fa-solid fa-circle-check"></i>
+              Learned Cards
+            </button>
+          </div>
+        </div>
+        <div class="resetGap"></div>
+        <div class="resetDeckSection">
+          <button id="reset" class="reset" title="Reset Deck">
+            <i class="fa-solid fa-broom"></i>
+            Clear All Reviews
+          </button>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
