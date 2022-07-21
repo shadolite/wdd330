@@ -1,8 +1,16 @@
 import IPACardView from "./ipaCardView.js";
 import IPADeck from "./ipaDeck.js";
 
+const deck = new IPADeck();
+deck.loadCards();
+const cardView = new IPACardView();
+const filteredDeck = { 
+  currentIndex: 0,
+  cards: deck.getAllCards()
+};
+
 function flipCardHandler(event){
-  throw new error('not implemented');
+  loadCardBack();
 }
 
 function playAudioHandler(event){
@@ -12,73 +20,103 @@ function playAudioHandler(event){
 }
 
 function failCardHandler(event){
-  throw new error('not implemented');
+  updateCard(false);
+
+  let filter = getFilterType();
+  if (filter == "failed" || filter == "all"){
+    loadNextCard();
+  }
+  else{
+    loadDeck(filter);
+  }
+}
+
+const updateCard = (learned) => {
+  const card = filteredDeck.cards[filteredDeck.currentIndex];
+  card.learned = learned;
+  deck.saveCards();
 }
 
 function learnCardHandler(event){
-  throw new error('not implemented');
+  updateCard(true);
+
+  let filter = getFilterType();
+  if (filter == "learned" || filter == "all"){
+    loadNextCard();
+  }
+  else{
+    loadDeck(filter);
+  }
 }
 
+const addFrontListeners = () => {
+  const flipButton = document.getElementById("flipButton");
+  flipButton.addEventListener('click', () => flipCardHandler);
+}
 
-export default class IPADeckController {
-  constructor(parent) {
-    this.deck = new IPADeck().loadCards();
-    this.cardView = new IPACardView();
-    this.filteredDeck = deck.getAllCards();
-    this.currentCard = this.filteredDeck[0];
+const addBackListeners = () => {
+  const playButton = document.getElementById("playButton");
+  if (playButton){
+    playButton.addEventListener('click', () => playAudioHandler);
   }
 
-  // initialize(){
-  //   this.deck.loadCards();
-  // }
+  const failButton = document.getElementById("failButton");
+  failButton.addEventListener('click', () => failCardHandler);
 
-  clearReviews(){
+  const successButton = document.getElementById("successButton");
+  successButton.addEventListener('click', () => learnCardHandler);
+}
+
+export const getFilterType = () => {
+  let selectedButton = document.getElementsByClassName('selected')[0];
+  let filter = selectedButton.id;
+  return filter;
+}
+
+  export const clearReviews = () => {
     throw new error('not implemented');
   }
 
-  loadDeck(filter){
+  export const loadDeck = (filter) => {
     switch (filter) {
       case "new":
-        this.filteredDeck = deck.getNewCards();
-        loadCardFront(this.filteredDeck[0]);
+        filteredDeck.cards = deck.getNewCards();
         break;
       case "failed":
-        this.filteredDeck = deck.getFailedCards();
-        loadCardFront(this.filteredDeck[0]);
+        filteredDeck.cards = deck.getFailedCards();
         break;
         case "learned":
-          this.filteredDeck = deck.getLearned();
-          loadCardFront(this.filteredDeck[0]);
+          filteredDeck.cards = deck.getLearned();
           break;
       default:
-        this.filteredDeck = deck.getAllCards();
-        loadCardFront(this.filteredDeck[0]);
+        filteredDeck.cards = deck.getAllCards();
     }
-    this.currentCard = this.filteredDeck[0];
-    this.loadCardFront();
+    
+    filteredDeck.currentIndex = 0;
+    loadCardFront();
   }
 
-  loadCardFront(){
-    throw new error('not implemented');
+  const loadCardFront = () => {
+    cardView.renderCardFront(filteredDeck.cards[filteredDeck.currentIndex]);
+    addFrontListeners();
   }
 
-  loadCardBack(){
-    throw new error('not implemented');
+  const loadCardBack = () => {
+    cardView.renderCardBack(filteredDeck.cards[filteredDeck.currentIndex]);
+    addBackListeners();
   }
 
-  loadNextCard(){
-    if (this.filteredDeck.length < 1){
+  const loadNextCard = () => {
+    if (filteredDeck.cards.length < 1){
       throw new error('not implemented');
     }
 
-    let index = this.filteredDeck.findIndex(this.currentCard) + 1;
-    if (this.filteredDeck.length == index + 1){
-      this.currentCard = this.filteredDeck[0];
+    if (filteredDeck.cards.length == filteredDeck.currentIndex + 1){
+      filteredDeck.currentIndex = 0;
     }
     else{
-      this.currentCard = this.filteredDeck[index];
+      filteredDeck.currentIndex++;
     }
 
-    this.loadCardFront();
+    loadCardFront();
   }
-}

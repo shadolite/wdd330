@@ -1,12 +1,6 @@
-import IPADeckController from "./ipaDeckController.js";
+import { getFilterType, loadDeck} from "./ipaDeckController.js";
 
-const deckController = new IPADeckController();
-
-const getFilterType = () => {
-  let selectedButton = document.getElementsByClassName('selected')[0];
-  let filter = selectedButton.id;
-  return filter;
-}
+// const deckController = new IPADeckController();
 
 const getFilterButtons = () =>
   [...document.getElementsByClassName("filter")];
@@ -50,5 +44,5 @@ const addResetListener = () => {
 window.onload = () => {
   addFilterListeners();
   addResetListener();
-  // deckController.initialize();
+  loadDeck();
 }

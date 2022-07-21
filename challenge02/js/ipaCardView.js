@@ -26,8 +26,18 @@ const getAudio = (audioPath) => {
   return audio;
 }
 
-const getPlayButton = () => {
+const getPlayIcon = () => {
+  let icon = document.createElement("i");
+  icon.className = "fa-solid fa-volume-low";
+  return icon;
+}
 
+const getPlayButton = () => {
+  let button = document.createElement("button");
+  button.classList.add(...["play", "cardButton"]);
+  button.id = "playButton"
+  resetButton.appendChild(getPlayIcon());
+  return button;
 }
 
 const getFailIcon = () => {
@@ -74,6 +84,7 @@ const getFlipIcon = () => {
 const getFlipButton = () => {
   let flipButton = document.createElement("button");
   flipButton.className = "flip";
+  flipButton.id = "flipButton";
   flipButton.appendChild(getFlipIcon());
   return flipButton;
 }
