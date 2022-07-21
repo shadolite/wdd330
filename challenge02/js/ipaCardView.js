@@ -8,14 +8,14 @@ const getSymbolSpan = (symbol) => {
 const getExamplesSpan = (examples) => {
   let span = document.createElement("span");
   span.className = "examples";
-  span.innerText = examples;
+  span.innerText = `Examples:${examples}`;
   return span;
 }
 
 const getDescriptionSpan = (description) => {
   let span = document.createElement("span");
   span.className = "description";
-  span.innerText = description;
+  span.innerText = `Description: ${description}`;
   return span;
 }
 
@@ -36,7 +36,7 @@ const getPlayButton = () => {
   let button = document.createElement("button");
   button.classList.add(...["play", "cardButton"]);
   button.id = "playButton"
-  resetButton.appendChild(getPlayIcon());
+  button.appendChild(getPlayIcon());
   return button;
 }
 
@@ -50,7 +50,7 @@ const getFailButton = () => {
   let button = document.createElement("button");
   button.classList.add(...["fail", "cardButton"]);
   button.id = "failButton"
-  resetButton.appendChild(getFailIcon());
+  button.appendChild(getFailIcon());
   return button;
 }
 
@@ -64,7 +64,7 @@ const getSuccessButton = () => {
   let button = document.createElement("button");
   button.classList.add(...["success", "cardButton"]);
   button.id = "successButton"
-  resetButton.appendChild(getSuccessIcon());
+  button.appendChild(getSuccessIcon());
   return button;
 }
 
@@ -77,7 +77,7 @@ const getReviewSpan = () => {
 
 const getFlipIcon = () => {
   let flipIcon = document.createElement("i");
-  flipIcon.className = "fa-solid fa-trash-can";
+  flipIcon.className = "fa-solid fa-repeat";
   return flipIcon;
 }
 
@@ -85,6 +85,7 @@ const getFlipButton = () => {
   let flipButton = document.createElement("button");
   flipButton.className = "flip";
   flipButton.id = "flipButton";
+  flipButton.innerText = "Flip Card "
   flipButton.appendChild(getFlipIcon());
   return flipButton;
 }
@@ -104,24 +105,22 @@ export default class IPACardView {
   }
 
   renderCardBack(card){
+    let breakElement = document.createElement("br");
     let cardElement = document.getElementById("card");
+    cardElement.dataset.card = JSON.stringify(card);
     clearElementChildren(cardElement);
     cardElement.appendChild(getSymbolSpan(card.symbol));
+    cardElement.appendChild(breakElement);
     if (card.audioAddress){
       cardElement.appendChild(getAudio(card.audioAddress));
       cardElement.appendChild(getPlayButton());
     }
+    cardElement.appendChild(breakElement);
     cardElement.appendChild(getExamplesSpan(card.examples));
+    cardElement.appendChild(breakElement);
     cardElement.appendChild(getDescriptionSpan(card.description));
-    cardElement.appendChild(getReviewSpan());
-  }
-  
-  getTaskRow = (card) => {
-    let row = document.createElement("tr");
-    row.id = card.id.toString();
-    row.className = "task";
-    row.appendChild(getSuccessSpan(!card.isOpen));
-    row.append(getDescriptionSpan(card.description));
-    return row;
+    cardElement.appendChild(breakElement);
+    cardElement.appendChild(getFailButton());
+    cardElement.appendChild(getSuccessButton());
   }
 }

@@ -1,122 +1,187 @@
 import IPACardView from "./ipaCardView.js";
 import IPADeck from "./ipaDeck.js";
 
-const deck = new IPADeck();
-deck.loadCards();
-const cardView = new IPACardView();
-const filteredDeck = { 
-  currentIndex: 0,
-  cards: deck.getAllCards()
-};
 
-function flipCardHandler(event){
-  loadCardBack();
+const getFilterButtons = () =>
+[...document.getElementsByClassName("filter")];
+
+function updateSelectedClass(event) {
+  if (event.target.classList.value.includes('selected'))
+    return;
+
+  getFilterButtons().forEach(el => {
+    el.classList.remove('selected');
+  })
+
+  event.classList.add('selected');
 }
-
-function playAudioHandler(event){
-  const audio = document.getElementsByClassName("audio")[0];
-  audio.currentTime = 0;
-  audio.play();
-}
-
-function failCardHandler(event){
-  updateCard(false);
-
-  let filter = getFilterType();
-  if (filter == "failed" || filter == "all"){
-    loadNextCard();
-  }
-  else{
-    loadDeck(filter);
-  }
-}
-
-const updateCard = (learned) => {
-  const card = filteredDeck.cards[filteredDeck.currentIndex];
-  card.learned = learned;
-  deck.saveCards();
-}
-
-function learnCardHandler(event){
-  updateCard(true);
-
-  let filter = getFilterType();
-  if (filter == "learned" || filter == "all"){
-    loadNextCard();
-  }
-  else{
-    loadDeck(filter);
-  }
-}
-
-const addFrontListeners = () => {
-  const flipButton = document.getElementById("flipButton");
-  flipButton.addEventListener('click', () => flipCardHandler);
-}
-
-const addBackListeners = () => {
-  const playButton = document.getElementById("playButton");
-  if (playButton){
-    playButton.addEventListener('click', () => playAudioHandler);
+export default class IPADeckController{
+  constructor(){
+    this.deck = new IPADeck();
+    this.cardView = new IPACardView();
+    this.filteredDeck = { 
+      currentIndex: 0,
+      cards: undefined
+    };
   }
 
-  const failButton = document.getElementById("failButton");
-  failButton.addEventListener('click', () => failCardHandler);
+  async initialize(){
+    await this.deck.loadCards().then((result) =>{
+      this.filteredDeck.cards = result;
+      this.addFilterListeners();
+      this.addResetListener();
+      this.loadCardFront();
+    });
+  }
+  
+  
+  filterHandler(event) {
+    updateSelectedClass(event);
+    this.loadFilteredDeck(this.getFilterType());
+  }
+  
+  addFilterListeners = () => {
+    getFilterButtons().forEach(element => {
+      element.addEventListener("click", (event) => {this.filterHandler(event)});
+    });
+  }
+  
+  resetHandler(controller) {
+    if (confirm("Are you sure you want to reset reviews for all cards?")){
+      this.clearReviews();
+      this.loadFilteredDeck(getFilterType());
+    }
+  }
+  
+  addResetListener = () => {
+    let resetButton = document.getElementById("reset");
+    resetButton.addEventListener("click", this.resetHandler);
+  }
 
-  const successButton = document.getElementById("successButton");
-  successButton.addEventListener('click', () => learnCardHandler);
-}
+  flipCardHandler(controller){
+    controller.loadCardBack();
+  }
 
-export const getFilterType = () => {
-  let selectedButton = document.getElementsByClassName('selected')[0];
-  let filter = selectedButton.id;
-  return filter;
-}
+  playAudioHandler(controller){
+    const audio = document.getElementsByClassName("audio")[0];
+    audio.currentTime = 0;
+    audio.play();
+  }
 
-  export const clearReviews = () => {
+  failCardHandler(controller){
+    controller.updateCard(false);
+
+    let filter = getFilterType();
+    if (filter == "failed" || filter == "all"){
+      controller.loadNextCard();
+    }
+    else{
+      controller.loadFilteredDeck(filter);
+    }
+  }
+
+  updateCard = (learned) => {
+    const card = this.filteredDeck.cards[this.filteredDeck.currentIndex];
+    card.learned = learned;
+    this.deck.saveCards();
+  }
+
+  learnCardHandler(controller){
+    const card = controller.filteredDeck.cards[controller.filteredDeck.currentIndex];
+    controller.deck.cards.filter(c => c.group == card.group && c.id == card.id)[0].learned = true;
+    controller.deck.saveCards();
+    controller.updateCard(true);
+
+    let filter = getFilterType();
+    if (filter == "learned" || filter == "all"){
+      controller.loadNextCard();
+    }
+    else{
+      controller.loadFilteredDeck(filter);
+    }
+  }
+
+  addFrontListeners = () => {
+    const flipButton = document.getElementById("flipButton");
+    flipButton.addEventListener('click', () => {
+      this.flipCardHandler(this);
+    });
+  }
+
+  addBackListeners = () => {
+    const playButton = document.getElementById("playButton");
+    if (playButton){
+      playButton.addEventListener('click', () => this.playAudioHandler);
+    }
+
+    const failButton = document.getElementById("failButton");
+    failButton.addEventListener('click', () => {
+      this.failCardHandler(this);
+    });
+
+    const successButton = document.getElementById("successButton");
+    successButton.addEventListener('click', () => {
+      this.learnCardHandler(this);
+    });
+  }
+
+  getFilterType = () => {
+    let selectedButton = document.getElementsByClassName('selected')[0];
+    let filter = selectedButton.id;
+    return filter;
+  }
+
+  clearReviews = () => {
     throw new error('not implemented');
   }
 
-  export const loadDeck = (filter) => {
+  loadFilteredDeck = (filter) => {
     switch (filter) {
       case "new":
-        filteredDeck.cards = deck.getNewCards();
+        this.filteredDeck.cards = this.deck.getNewCards();
         break;
       case "failed":
-        filteredDeck.cards = deck.getFailedCards();
+        this.filteredDeck.cards = this.deck.getFailedCards();
         break;
         case "learned":
-          filteredDeck.cards = deck.getLearned();
+          this.filteredDeck.cards = this.deck.getLearned();
           break;
       default:
-        filteredDeck.cards = deck.getAllCards();
+        this.filteredDeck.cards = this.deck.getAllCards();
     }
     
-    filteredDeck.currentIndex = 0;
-    loadCardFront();
+    this.filteredDeck.currentIndex = 0;
+    this.loadCardFront();
   }
 
-  const loadCardFront = () => {
-    cardView.renderCardFront(filteredDeck.cards[filteredDeck.currentIndex]);
-    addFrontListeners();
+  loadCardFront = () => {
+    const card = this.filteredDeck.cards[this.filteredDeck.currentIndex];
+    if (card){
+      this.cardView.renderCardFront(card);
+      this.addFrontListeners();
+    }
   }
 
-  const loadCardBack = () => {
-    cardView.renderCardBack(filteredDeck.cards[filteredDeck.currentIndex]);
-    addBackListeners();
+  loadCardBack = () => {
+    const card = this.filteredDeck.cards[this.filteredDeck.currentIndex];
+    if (card){
+      this.cardView.renderCardBack(card);
+      this.addBackListeners();
+    }
   }
 
-  const loadNextCard = () => {
-    if (filteredDeck.cards.length < 1){
+  loadNextCard = () => {
+    if (this.filteredDeck.cards.length < 1){
       throw new error('not implemented');
     }
 
-    if (filteredDeck.cards.length == filteredDeck.currentIndex + 1){
-      filteredDeck.currentIndex = 0;
+    if (this.filteredDeck.cards.length == this.filteredDeck.currentIndex + 1){
+      this.filteredDeck.currentIndex = 0;
     }
     else{
-      filteredDeck.currentIndex++;
+      this.filteredDeck.currentIndex++;
     }
 
-    loadCardFront();
+    this.loadCardFront();
   }
+}
