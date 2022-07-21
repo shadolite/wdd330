@@ -89,17 +89,31 @@ const getFlipButton = () => {
   return flipButton;
 }
 
+const clearElementChildren = (element) => {
+  while (element.firstChild){
+    element.removeChild(element.firstChild);
+  }
+}
+
 export default class IPACardView {
-  renderCardFront(card, element){
-    while (element.firstChild){
-      element.removeChild(element.firstChild);
-    }
-    // element.innerHTML = 
-    throw new error('not implemented');
+  renderCardFront(card){
+    let cardElement = document.getElementById("card");
+    clearElementChildren(cardElement);
+    cardElement.appendChild(getSymbolSpan(card.symbol));
+    cardElement.appendChild(getFlipButton());
   }
 
-  renderCardBack(card, element){
-    throw new error('not implemented');
+  renderCardBack(card){
+    let cardElement = document.getElementById("card");
+    clearElementChildren(cardElement);
+    cardElement.appendChild(getSymbolSpan(card.symbol));
+    if (card.audioAddress){
+      cardElement.appendChild(getAudio(card.audioAddress));
+      cardElement.appendChild(getPlayButton());
+    }
+    cardElement.appendChild(getExamplesSpan(card.examples));
+    cardElement.appendChild(getDescriptionSpan(card.description));
+    cardElement.appendChild(getReviewSpan());
   }
   
   getTaskRow = (card) => {
@@ -108,7 +122,6 @@ export default class IPACardView {
     row.className = "task";
     row.appendChild(getSuccessSpan(!card.isOpen));
     row.append(getDescriptionSpan(card.description));
-    row.append(getResetSpan());
     return row;
   }
 }
