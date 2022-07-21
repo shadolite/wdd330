@@ -42,6 +42,18 @@ const linksInfo = [
   {
     label: "Week 11",
     url: "week11/index.html"
+  },
+  {
+    label: "Week 12",
+    url: "week12/index.html"
+  },
+  {
+    label: "Week 13",
+    url: "week13/index.html"
+  },
+  {
+    label: "Challenge 02",
+    url: "challenge02/index.html"
   }
 ]
 
