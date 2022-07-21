@@ -15,7 +15,7 @@ export default class IPADeck {
   }
 
   getAllCards = () => this.cards;
-  getNewCards = () => this.cards.filter(c => c.learned == null);
+  getNewCards = () => this.cards.filter(c => c.learned == undefined);
   getFailedCards = () => this.cards.filter(c => c.learned == false);
   getLearnedCards = () => this.cards.filter(c => c.learned == true);
 
