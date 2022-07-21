@@ -6,7 +6,6 @@ export default class IPACard {
     this.examples = cardData.Examples;
     this.description = cardData.Description;
     this.audioAddress = getAudioAddress(ipaGroup, ipaID, cardData.Symbol);
-    this.reviewCount = 0;
     this.learned = undefined;
   }
 }
