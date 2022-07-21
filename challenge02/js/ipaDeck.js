@@ -23,7 +23,7 @@ export default class IPADeck {
     let savedCards = loadDeck();
 
     if (savedCards.length < 1){
-      let symbols = await getJSON(this.symbolsURL);
+      let symbols = await getJSON(this.ipaSymbolEndpoint);
       let marks = await getJSON(this.ipaMarksEndpoint);
       savedCards.push(...parseCards(symbols));
       savedCards.push(...parseCards(marks));
@@ -44,18 +44,29 @@ const parseCards = (ipaData) => {
   const cards = new Array();
 
   for (let i = 0; i < tableData.length; i++){
-    if (tableData[i].Description[0] == '^'){
-      group = tableData[i].Description[tableData[i].Description.length - 1];
-      if (group == 's'){
-        group = 'Others';
-      }
+    let data = tableData[i];
+    if (data.Description[0] == '^' || data.Description.includes("Signs")){
+      group = getGroup(data.Description)
       groupCardID = 0;
     }
     else{
-      cards.push(new IPACard(group, groupCardID, tableData[i].Symbol, tableData[i].Examples, tableData[i].Description));
+      cards.push(new IPACard(group, groupCardID, data));
       groupCardID++;
     }
   }
 
   return cards;
+}
+
+const getGroup = (description) => {
+  let group = description[description.length - 1];
+
+  if (group == 's'){
+    return 'Others';
+  }
+  else if (group == 'r'){
+    return description;
+  }
+
+  return group;
 }

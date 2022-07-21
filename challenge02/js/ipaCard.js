@@ -1,15 +1,25 @@
 export default class IPACard {
-  constructor(ipaGroup, ipaID, symbolString, examples, description, audioAddress = null, reviewCount = 0, learned = null) {
-    this.ipaGroup = ipaGroup;
+  constructor(ipaGroup, ipaID, cardData) {
+    this.group = ipaGroup;
     this.id = ipaID;
-    this.symbol = symbolString[1];
-    this.examples = examples;
-    this.description = description;
-    this.audioAddress = audioAddress ? audioAddress : getAudioAddress(ipaGroup, ipaID, symbolString);
-    this.reviewCount = reviewCount;
-    this.learned = learned;
+    this.symbol = getSymbol(ipaGroup, cardData.Symbol);
+    this.examples = cardData.Examples;
+    this.description = cardData.Description;
+    this.audioAddress = getAudioAddress(ipaGroup, ipaID, cardData.Symbol);
+    this.reviewCount = 0;
+    this.learned = undefined;
+  }
+}
+
+const getSymbol = (group, symbolString) => {
+  if (group.includes('Signs')){
+    let symbol = symbolString.replace('[', '');
+    return symbol.replace(']', '');
+  }
+  else{
+    return symbolString[1];
   }
 }
 
 const getAudioAddress = (ipaGroup, ipaID, symbolString) => 
-  symbolString.length < 4 ? null : `/resources/audio/${ipaGroup}/${ipaID}.ogg`;
+  symbolString.includes('listen') ? `/resources/audio/${ipaGroup}/${ipaID}.ogg` : undefined;
