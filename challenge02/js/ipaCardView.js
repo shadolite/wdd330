@@ -86,8 +86,9 @@ export default class IPACardView {
     // element.innerHTML = 
     throw new error('not implemented');
   }
+
   renderCardBack(card, element){
-    throw new error('not impelented');
+    throw new error('not implemented');
   }
   
   getTaskRow = (card) => {

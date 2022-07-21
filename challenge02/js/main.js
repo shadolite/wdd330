@@ -50,5 +50,5 @@ const addResetListener = () => {
 window.onload = () => {
   addFilterListeners();
   addResetListener();
-  deckController.initialize();
+  // deckController.initialize();
 }
